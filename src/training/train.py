@@ -1,17 +1,47 @@
+
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
 from tqdm import tqdm
-
+from typing import List, Union, Tuple
+from torch.utils.data import DataLoader
 
 
 class Trainer:
-    def __init__(self, model, train_loader, device='cuda'):
+    """
+    Trainer class to handle training loop for a PyTorch model.
+
+    Args:
+        model (nn.Module): The PyTorch model to be trained.
+        train_loader (DataLoader): The DataLoader for the training dataset.
+        device (str, optional): The device on which to train the model. Default is 'cuda'.
+
+    Attributes:
+        model (nn.Module): The PyTorch model to be trained.
+        train_loader (DataLoader): The DataLoader for the training dataset.
+        device (str): The device on which to train the model.
+
+    """
+
+    def __init__(self, model: nn.Module, train_loader: DataLoader, device: str = 'cuda'):
         self.model = model
         self.train_loader = train_loader
         self.device = torch.device(device)
 
-    def train(self, num_epochs, criterion, optimizer):
+    def train(self, num_epochs: int, criterion: nn.Module, optimizer: optim.Optimizer) -> Tuple[List[float], List[float]]:
+        """
+        Train the model using the given criterion and optimizer.
+
+        Args:
+            num_epochs (int): The number of training epochs.
+            criterion (nn.Module): The loss function to optimize.
+            optimizer (optim.Optimizer): The optimizer used for gradient updates.
+
+        Returns:
+            Tuple[List[float], List[float]]: Training loss and accuracy history.
+
+        """
         self.model.to(self.device)
         self.model.train()
 
@@ -50,16 +80,40 @@ class Trainer:
         return train_loss_history, train_acc_history
 
 
-
-
-
 class BERTTrainer:
-    def __init__(self, model, train_loader, device='cuda'):
+    """
+    BERTTrainer class to handle training loop for a BERT-based model.
+
+    Args:
+        model (nn.Module): The BERT-based model to be trained.
+        train_loader (DataLoader): The DataLoader for the training dataset.
+        device (str, optional): The device on which to train the model. Default is 'cuda'.
+
+    Attributes:
+        model (nn.Module): The BERT-based model to be trained.
+        train_loader (DataLoader): The DataLoader for the training dataset.
+        device (str): The device on which to train the model.
+
+    """
+
+    def __init__(self, model: nn.Module, train_loader: DataLoader, device: str = 'cuda'):
         self.model = model
         self.train_loader = train_loader
         self.device = torch.device(device)
 
-    def train(self, num_epochs, criterion, optimizer):
+    def train(self, num_epochs: int, criterion: nn.Module, optimizer: optim.Optimizer) -> Tuple[List[float], List[float]]:
+        """
+        Train the BERT-based model using the given criterion and optimizer.
+
+        Args:
+            num_epochs (int): The number of training epochs.
+            criterion (nn.Module): The loss function to optimize.
+            optimizer (optim.Optimizer): The optimizer used for gradient updates.
+
+        Returns:
+            Tuple[List[float], List[float]]: Training loss and accuracy history.
+
+        """
         self.model.to(self.device)
         self.model.train()
 
@@ -98,4 +152,3 @@ class BERTTrainer:
             print(f"Epoch {epoch+1}/{num_epochs}, Loss: {epoch_loss}, Acc: {epoch_acc}")
 
         return train_loss_history, train_acc_history
-

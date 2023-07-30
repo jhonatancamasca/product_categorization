@@ -1,9 +1,27 @@
 import matplotlib.pyplot as plt
+from typing import List
 
 
 class Plotter:
+    """
+    Plotter class to visualize training history.
+
+    """
+
     @staticmethod
-    def plot_history(train_loss_history, train_acc_history, num_epochs):
+    def plot_history(train_loss_history: List[float], train_acc_history: List[float], num_epochs: int) -> None:
+        """
+        Plot the training history for accuracy and loss.
+
+        Args:
+            train_loss_history (List[float]): List of training loss values for each epoch.
+            train_acc_history (List[float]): List of training accuracy values for each epoch.
+            num_epochs (int): The total number of epochs.
+
+        Returns:
+            None
+
+        """
         plt.figure(figsize=(10, 5))
 
         # Accuracy plot
