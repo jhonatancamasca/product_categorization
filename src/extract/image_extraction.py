@@ -3,12 +3,20 @@ import json
 from extract import download_and_save_images, copy_images
 
 def main(json_file: str, source_dir: str, destination_dir: str) -> None:
+    """
+    Main function to download images from JSON data and copy them to a specified directory.
+
+    Args:
+        json_file (str): Path to the JSON file containing image URLs and SKU information.
+        source_dir (str): Path to the source directory where the images are located.
+        destination_dir (str): Path to the destination directory where images will be copied.
+
+    Returns:
+        None
+    """
     # Load JSON data from the file
     with open(json_file) as file:
         data_anyone = json.load(file)
-
-    # Start processing data from index 39568
-    data_anyone = data_anyone[39568:]
 
     # Download and save images, then get SKU and image name information
     info_df = download_and_save_images(data_anyone)
